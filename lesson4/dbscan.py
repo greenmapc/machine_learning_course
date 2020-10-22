@@ -27,11 +27,10 @@ def cluster_expand(point, neighbors, cluster, points, eps, m):
             candidate.cluster = cluster
 
 
-# todo: improve
 def find_neighbors(point, points, eps):
     result = set()
     for candidate in points:
-        if candidate != point and dist(point.x, point.y, candidate.x, candidate.y) <= eps:
+        if dist(point.x, point.y, candidate.x, candidate.y) <= eps:
             result.add(candidate)
     return result
 
@@ -40,10 +39,10 @@ def noise_distribution(points):
     for noise in points:
         if noise.noise:
             noise.noise = False
-            min_dist = 100
+            min_dist = 1000
             for point in points:
-                current_min = dist(noise.x, noise.y, point.x, point.y)
-                if point != noise and min_dist > current_min:
-                    noise.cluster = point.cluster
-                    min_dist = current_min
-
+                if not point.noise:
+                    current_min = dist(noise.x, noise.y, point.x, point.y)
+                    if point != noise and min_dist > current_min:
+                        noise.cluster = point.cluster
+                        min_dist = current_min

@@ -5,7 +5,7 @@ from lesson4.domain import Point
 
 import matplotlib.pyplot as plt
 
-n = 60
+n = 30
 points = [Point(random.randint(1, 100), random.randint(1, 100)) for i in range(n)]
 
 color_map = {
@@ -15,12 +15,15 @@ color_map = {
     3: 'y',
     4: 'm',
     5: 'c',
-    6: 'peru'
-
+    6: 'peru',
+    7: 'gray',
+    8: 'indigo',
+    9: 'lime',
+    10: 'pink'
 }
 
 
-def show(result):
+def show(result, save):
     noise_exists = False
     for point in result:
         if point.noise:
@@ -29,16 +32,18 @@ def show(result):
         else:
             color = color_map[point.cluster]
         plt.scatter(point.x, point.y, color=color)
-    if noise_exists:
+    if noise_exists and save:
         plt.savefig("with_noise.png")
-    else:
+    elif save:
         plt.savefig("without_noise.png")
     plt.show()
 
 
-dbscan(points, 40, 7)
+m = 2  # default
+epsilon = 25  # can change
+dbscan(points, epsilon, m)
 print('cluster count: ', len(set(map(lambda e: e.cluster, filter(lambda e: e.cluster is not None, points)))))
-show(points)
+show(points, False)
 
 noise_distribution(points)
-show(points)
+show(points, False)
