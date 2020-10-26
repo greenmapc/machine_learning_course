@@ -40,7 +40,7 @@ def show_minimum_spanning_tree(points, save):
             stack.append(vertex)
     plt.plot(x, y, color="blue", marker="o")
     if save:
-        plt.savefig("tree.png")
+        plt.savefig("tree.demonstration")
     plt.show()
 
 
