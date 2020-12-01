@@ -85,7 +85,6 @@ def logistic_regression_with_dividing_plane():
     model = find_weights_for_dividing_plane(points, clusters)
     plane_z = find_points_for_dividing_plane(model)
     draw(plane_z)
-    print('a')
 
 
 logistic_regression_with_dividing_plane()
