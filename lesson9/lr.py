@@ -24,10 +24,11 @@ def generate_points():
 
 # генерируем тестовую плоскость, которая разобьет точки по кластерам (фиктивная кластеризация)
 # Ax + By + Cz + d = 0
+# d = 0
 def generate_test_plane():
     a = np.random.random() * 0.5
     b = np.random.random() * 0.5
-    c = np.random.randint(5, 10)
+    c = - np.random.random() * 0.9
     return a, b, c
 
 
@@ -38,7 +39,7 @@ def assign_points_to_cluster(points, a, b, c):
         x_i = points[i][0]
         y_i = points[i][1]
         z_i = points[i][2]
-        if z_i < (a * x_i + b * y_i + c):
+        if a * x_i + b * y_i + c * z_i < 0:
             clusters.append(0)
             cluster_1_x.append(x_i)
             cluster_1_y.append(y_i)
@@ -84,6 +85,7 @@ def logistic_regression_with_dividing_plane():
     model = find_weights_for_dividing_plane(points, clusters)
     plane_z = find_points_for_dividing_plane(model)
     draw(plane_z)
+    print('a')
 
 
 logistic_regression_with_dividing_plane()
